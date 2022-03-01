@@ -9,8 +9,12 @@ const app = express();
 //path for static files
 const path = require('path');
 
-//webpack
-app.use('/dist', static(path.join(__dirname, '../dist')));
+//webpack static files route
+// app.use('/dist', static(path.join(__dirname, '../dist')));
+// automatically made public folder/ bundle.js by adding output prop in webpack.config.js file.
+// remove the dist/main.js folder.
+// update static path for webpack to be /public instead of /dist
+app.use('/public', static(path.join(__dirname, '../public')));
 
 //routes
 app.get('/', (req, res, next)=> res.sendFile(path.join(__dirname, '../index.html')));

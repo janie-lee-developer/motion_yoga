@@ -12,6 +12,7 @@ class App extends Component {
     }
 
     async componentDidMount(){
+        console.log('it did mountttt bab')
         this.setState({
             users: (await axios.get('/api/users')).data,
             loading: false
