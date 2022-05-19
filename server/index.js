@@ -31,7 +31,7 @@ app.get('/api/users', async(req, res, next) => {
 const init = async() => {
     try {
         await syncAndSeed();
-        const port = process.env.PORT || 3005;
+        const port = process.env.PORT || 3001;
         app.listen(port, () => console.log(`listening on port ${port}`));
     } 
     catch(ex) {
