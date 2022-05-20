@@ -16,6 +16,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",
+    "@use-it/interval": "^1.0.0",
     "express": "^4.17.3",
     "ml5": "^0.6.0",
     "p5": "^1.4.1",
