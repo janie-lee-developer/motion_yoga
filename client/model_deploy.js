@@ -5,6 +5,11 @@ import useInterval from "@use-it/interval";
 import ml5 from "ml5";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 
+//p5 audio
+import "./globals";
+import "p5/lib/addons/p5.sound";
+import * as p5 from "p5";
+
 // components
 // import sketch from "./sketch";
 import ItemContainer from "./style";
@@ -26,7 +31,6 @@ const App = (props) => {
   const [rednoseEffect, setRednoseEffect] = useState(false);
 
   let poseLabel = null;
-  let progress = 0;
 
   const todoPictures = [
     "/public/todo_motions/1.jpg",
@@ -34,10 +38,12 @@ const App = (props) => {
     "/public/todo_motions/3.jpg",
   ];
 
-  const todoLabels = ["A", "C", "D"];
+  const todoLabels = ["A", "E", "D"];
 
   const sketch = (p5) => {
     let video;
+    let img;
+    let ring;
     let poseNet;
     let pose;
     let skeleton;
@@ -49,6 +55,10 @@ const App = (props) => {
       video = p5.createCapture(p5.VIDEO);
       video.size(750, 550);
       video.hide();
+      img = p5.loadImage(todoPictures[0]);
+      ring = p5.loadSound("/public/ring_sound_effect/Correct-answer.mp3");
+
+      counter = new Count(p5, 0, 100, img, ring);
 
       poseNet = ml5.poseNet(video, modelLoaded);
       poseNet.on("pose", gotPoses);
@@ -67,11 +77,8 @@ const App = (props) => {
         metadata: "/public/stretch_model/model_meta.json",
         weights: "/public/stretch_model/model.weights.bin",
       };
-      brain.load(modelDetails, brainLoaded);
 
-      //   For loading bar
-      counter = new Count(p5, 0, 100);
-      counter.start();
+      brain.load(modelDetails, brainLoaded);
     };
 
     const brainLoaded = () => {
@@ -102,38 +109,11 @@ const App = (props) => {
       classifyPose();
     };
 
-    setInterval(() => {
-      handlePostureAndPic();
-    }, 1000);
-
-    const handlePostureAndPic = () => {
-      const currentPose = poseLabel;
-      console.log(
-        "todo:",
-        todoLabels[0],
-        "current pose:",
-        currentPose,
-        "progress: ",
-        progress
-      );
-      if (currentPose === todoLabels[0]) {
-        //current= A, todo=A, progress: 0
-        //current= C, todo=A
-        //current= A, todo=A, progress: 10
-        //current= A, todo=A, progress: 90
-        //current= A, todo=A, progress: 100
-        //current= A, todo=B, progress: 0
-        //current= B, todo=B, progress: 10
-        if (progress < 100) {
-          progress += 10;
-          return;
-        } else {
-          todoLabels.shift();
-          todoPictures.shift();
-          progress = 0;
-        }
-      }
-    };
+    setTimeout(() => {
+      setInterval(() => {
+        counter.handleClassify();
+      }, 200);
+    }, 500);
 
     const gotPoses = (poses) => {
       if (poses.length > 0) {
@@ -148,7 +128,7 @@ const App = (props) => {
 
     p5.draw = () => {
       p5.push();
-      p5.background(255);
+      // p5.background(255);
       p5.translate(750, 0);
       p5.scale(-1, 1);
       p5.image(video, 0, 0, 750, 550);
@@ -172,6 +152,8 @@ const App = (props) => {
       }
       p5.pop();
 
+      p5.image(counter.img, 751, 0, 750, 550);
+
       // For Progress Bar
       let middle = p5.height / 2;
       let sVal = counter.s; //0
@@ -188,9 +170,10 @@ const App = (props) => {
       p5.noFill();
       p5.rect(800, middle, width, 20, 15);
 
-      if (p5.floor(p5.random(300)) == 100) {
-        counter.reset();
-      }
+      // resetting progress bar to 0;
+      //   if (p5.floor(p5.random(300)) == 100) {
+      //     counter.reset();
+      //   }
 
       //   p5.fill(255, 0, 255);
       //   p5.noStroke();
@@ -201,26 +184,40 @@ const App = (props) => {
   };
 
   class Count {
-    constructor(p5, s, w) {
+    constructor(p5, s, w, img, ring) {
       this.p5 = p5;
       this.s = s;
       this.w = w;
       this.p = this.p5.createP("");
+      this.img = img;
+      this.ring = ring;
     }
 
-    start() {
-      if (!this.done) {
-        setInterval(() => this.counter(), this.w); // counter, 100
+    handleClassify() {
+      const currentPose = poseLabel;
+      console.log(
+        "todo:",
+        todoLabels[0],
+        "current pose:",
+        currentPose,
+        "progress: ",
+        this.s
+      );
+      if (currentPose === todoLabels[0]) {
+        if (this.s < 100) {
+          this.s += 2;
+        } else {
+          this.reset();
+        }
       }
     }
-    counter() {
-      if (this.s < 100) {
-        this.s++;
-        this.p.html(this.s);
-      }
-    }
+
     reset() {
+      this.ring.play();
+      todoLabels.shift();
+      todoPictures.shift();
       this.s = 0;
+      this.img = this.p5.loadImage(todoPictures[0]);
     }
   }
 
@@ -238,7 +235,6 @@ const App = (props) => {
         sx={{
           width: "95%",
           margin: "0 auto",
-          border: "red 3px solid",
         }}
         spacing={1}
       >
@@ -371,3 +367,32 @@ export default App;
 //     </Box>
 //   </div>
 // </Grid>;
+
+// handlePostureAndPic() {
+//   const currentPose = poseLabel;
+//   console.log(
+//     "todo:",
+//     todoLabels[0],
+//     "current pose:",
+//     currentPose,
+//     "progress: ",
+//     progress
+//   );
+//   if (currentPose === todoLabels[0]) {
+//     //current= A, todo=A, progress: 0
+//     //current= C, todo=A
+//     //current= A, todo=A, progress: 10
+//     //current= A, todo=A, progress: 90
+//     //current= A, todo=A, progress: 100
+//     //current= A, todo=B, progress: 0
+//     //current= B, todo=B, progress: 10
+//     if (progress < 100) {
+//       progress += 10;
+//       return;
+//     } else {
+//       todoLabels.shift();
+//       todoPictures.shift();
+//       progress = 0;
+//     }
+//   }
+// }

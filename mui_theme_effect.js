@@ -9,7 +9,7 @@ export const theme = createTheme({
       margin: "0 auto",
     },
     fonts: {
-      fontSize: "30px",
+      fontSize: "20px",
       fontFamily: "Radio Canada, sans- serif",
       color: "black",
     },
