@@ -1,6 +1,6 @@
-# STYLE BOUTIQUE
+# Motion Yoga
 
-## Motion Yoga
+## A machine learned yoga exercie app
 Motion Yoga is a web application, powered by ML5's PoseNet and Neural Network Libraries, P5 renderings. I collected my own data and trained the data to the machine, thanks to ML5's beginner friendly machine learning libraries. 
 Motion Yoga will detect your poses and proceed to next yoga postures only if you complete the process. It also has a filter effects that follows your motions, such as your skeleton structure and face effects using face recognition data.
 
