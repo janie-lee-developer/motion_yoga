@@ -7,6 +7,9 @@ const ItemContainer = styled.article`
     height: 100% !important;
     /* min-height: 300px !important; */
   }
+  #p5_loading {
+    display: none;
+  }
   /* @media only screen and (min-width: 600px) {
     canvas {
       min-height: 300px !important;

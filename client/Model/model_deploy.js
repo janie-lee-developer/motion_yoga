@@ -32,9 +32,12 @@ const Start = (props) => {
     "/public/todo_motions/1.jpg",
     "/public/todo_motions/2.jpg",
     "/public/todo_motions/3.jpg",
+    "/public/todo_motions/4.jpg",
+    "/public/todo_motions/5.jpg",
+    "/public/todo_motions/6.jpg",
   ];
 
-  let todoLabels = ["A", "E", "D"];
+  let todoLabels = ["A", "B", "C", "D", "E", "F"];
 
   let finishedLabels = [];
 
@@ -42,7 +45,6 @@ const Start = (props) => {
     let video;
     let img;
     let ring;
-    let check;
     let poseNet;
     let pose;
     let skeleton;
@@ -56,7 +58,6 @@ const Start = (props) => {
       video.hide();
       img = p5.loadImage(todoPictures[0]);
       ring = p5.loadSound("/public/ring_sound_effect/Correct-answer.mp3");
-      check = p5.loadImage("/public/styles/check_lv.jpg");
 
       counter = new Count(p5, 0, 100, img, ring);
 
@@ -159,24 +160,27 @@ const Start = (props) => {
         p5.ellipse(pose.nose.x, pose.nose.y, 30);
       }
       p5.pop();
-
       p5.image(counter.img, 751, 0, 750, 550);
 
       // For Progress Bar
-      let middle = p5.height / 2;
-      let sVal = counter.s; //0
-      let width = 650;
-      let Progress = p5.map(sVal, 0, 100, 0, width);
+      if (todoLabels.length > 0) {
+        let middle = p5.height / 2;
+        let sVal = counter.s; //0
+        let width = 650;
+        let Progress = p5.map(sVal, 0, 100, 0, width);
 
-      p5.fill(141, 242, 141);
-      p5.textSize(32);
-      p5.textFont("monospace");
-      let txt = p5.text("Progress : " + sVal + "%", 800, middle - 20);
+        p5.fill(141, 242, 141);
+        p5.textSize(32);
+        p5.textFont("monospace");
+        let txt = p5.text("Progress : " + sVal + "%", 800, middle - 20);
 
-      p5.rect(800, middle, Progress, 20, 15);
-      p5.stroke(141, 242, 141);
-      p5.noFill();
-      p5.rect(800, middle, width, 20, 15);
+        p5.rect(800, middle, Progress, 20, 15);
+        p5.stroke(141, 242, 141);
+        p5.noFill();
+        p5.rect(800, middle, width, 20, 15);
+      } else {
+        p5.test("Completed", 950, middle);
+      }
     };
   };
 
@@ -185,7 +189,6 @@ const Start = (props) => {
       this.p5 = p5;
       this.s = s;
       this.w = w;
-      this.p = this.p5.createP("");
       this.img = img;
       this.ring = ring;
     }
@@ -259,7 +262,7 @@ const Start = (props) => {
               justifyContent="flex-start"
               alignItems="flex-start"
             >
-              <Grid item sx={6}>
+              <Grid item xs={2}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -276,7 +279,7 @@ const Start = (props) => {
                   label="Skeleton"
                 />
               </Grid>
-              <Grid item sx={6}>
+              <Grid item xs={2}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -296,111 +299,44 @@ const Start = (props) => {
           </FormGroup>
         </Grid>
       </Grid>
+      <hr style={{ width: "95%", marginTop: "4rem", marginBottom: "5rem" }} />
+      <div
+        style={{
+          width: "50%",
+          margin: "0 auto 4rem auto",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="logo">Postures Gallery</Typography>
+      </div>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        sx={{ width: "90%", margin: "0 auto" }}
+      >
+        {todoPictures.map((pic) => {
+          return (
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              md={4}
+              lg={4}
+              x={4}
+              sx={{ width: "300px" }}
+            >
+              <div style={{ width: "100%" }}>
+                <img src={pic} style={{ maxWidth: "100%" }} />
+              </div>
+            </Grid>
+          );
+        })}
+      </Grid>
     </div>
   );
 };
 
 export default Start;
-
-{
-  /* {currentPose === "A" ? (
-              <img src="/public/pics/pos2.jpg" style={{ width: "100%" }} />
-            ) : currentPose === "E" ? (
-              <img src="/public/pics/posture.jpg" style={{ width: "100%" }} />
-            ) : (
-              <></>
-            )} */
-}
-
-//   const [completeMark, setCompleteMark] = useState(false);
-//   const [currentPose, setCurrentPose] = useState(null); // set every 3 seconds.
-//   let poseLabel = null; //once 95% above accuracy found then label is placed. most recent classification.
-
-//   const [progress, setProgress] = useState(0);
-
-// useInterval(() => {
-//   console.log("progress", progress);
-//   setCurrentPose(poseLabel);
-
-//   setCurrentPose((prevState) => {
-//     if (prevState === null && poseLabel === todoMotionsLabels[0]) {
-//       console.log("now", currentPose);
-//       setCurrentPose(poseLabel);
-//     }
-//   });
-
-//   setCurrentPose((prevState) => {
-//     if (!prevState && prevState === poseLabel) {
-//       setProgress((prevProgress) => {
-//         if (prevProgress >= 100) {
-//           //reset progress to 0;
-//           // shift todo
-//           todoMotionsLabels.shift();
-//           todoMotions.shift();
-//           // setCompleteMark(true);
-//           return 0;
-//         } else {
-//           return prevProgress + 20;
-//         }
-//       });
-//       console.log("now", currentPose);
-//       return poseLabel;
-//     }
-//   });
-
-//   setCurrentPose((prevState) => {
-//     if (!prevState && prevState !== poseLabel) {
-//       console.log("now", currentPose);
-//       return poseLabel;
-//     }
-//   });
-// }, 3000);
-
-//   useInterval(() => {
-//     setCurrentPose(poseLabel);
-//     console.log("Now", currentPose);
-//     setCurrentPose((prev) => {
-//       if (prev === currentPose) {
-//         setProgress((prev) => prev + 20);
-//       }
-//     });
-//   }, 3000);
-
-// <Grid item xs={12} sm={6} md={6} lg={6} xl={6} sx={{ width: "100%" }}>
-//   <div style={{ width: "100%", border: "solid 2px yellow" }}>
-//     {<img src={todoPictures[0]} />}
-//     <Box sx={{ width: "100%" }}>
-//       <LinearProgressWithLabel value={progress} />
-//       {/* <LinearProgress variant="determinate" value={progress} /> */}
-//     </Box>
-//   </div>
-// </Grid>;
-
-// handlePostureAndPic() {
-//   const currentPose = poseLabel;
-//   console.log(
-//     "todo:",
-//     todoLabels[0],
-//     "current pose:",
-//     currentPose,
-//     "progress: ",
-//     progress
-//   );
-//   if (currentPose === todoLabels[0]) {
-//     //current= A, todo=A, progress: 0
-//     //current= C, todo=A
-//     //current= A, todo=A, progress: 10
-//     //current= A, todo=A, progress: 90
-//     //current= A, todo=A, progress: 100
-//     //current= A, todo=B, progress: 0
-//     //current= B, todo=B, progress: 10
-//     if (progress < 100) {
-//       progress += 10;
-//       return;
-//     } else {
-//       todoLabels.shift();
-//       todoPictures.shift();
-//       progress = 0;
-//     }
-//   }
-// }

@@ -16,7 +16,7 @@ const DataTraining = (props) => {
     };
 
     brain = ml5.neuralNetwork(options);
-    brain.loadData("/public/stretch.json", dataReady);
+    brain.loadData("/public/pose_collection.json", dataReady);
   };
 
   const dataReady = () => {

@@ -13,10 +13,11 @@ const DataCollection = (props) => {
   let targetLabel;
 
   const keyPressed = (p5) => {
-    // if (p5.key == 't') {
-    //     brain.normalizeData();
-    //     brain.train({ epochs: 50}, finished)}
-    if (p5.key == "s") {
+    if (p5.key == "T") {
+      brain.normalizeData();
+      brain.train({ epochs: 50 }, finished);
+    }
+    if (p5.key == "S") {
       brain.saveData();
     } else {
       targetLabel = p5.key;
@@ -33,9 +34,9 @@ const DataCollection = (props) => {
   };
 
   const setup = (p5) => {
-    p5.createCanvas(640, 480);
+    p5.createCanvas(750, 550);
     video = p5.createCapture(p5.VIDEO);
-    video.size(640, 480);
+    video.size(750, 550);
     video.hide();
 
     poseNet = ml5.poseNet(video, modelLoaded);
@@ -43,7 +44,7 @@ const DataCollection = (props) => {
 
     let options = {
       inputs: 34,
-      outputs: 4,
+      outputs: 6,
       task: "classification",
       debug: true,
     };
@@ -72,7 +73,7 @@ const DataCollection = (props) => {
   };
 
   const gotResult = (err, results) => {
-    if (results[0].confidence > 0.75) {
+    if (results[0].confidence > 0.95) {
       poseLabel = results[0].label.toUpperCase();
     }
     classifyPose();
@@ -136,11 +137,11 @@ const DataCollection = (props) => {
     }
     p5.pop();
 
-    p5.fill(255, 0, 255);
-    p5.noStroke();
-    p5.textSize(512);
-    p5.textAlign(p5.CENTER, p5.CENTER);
-    p5.text(poseLabel, p5.width / 2, p5.height / 2);
+    // p5.fill(255, 0, 255);
+    // p5.noStroke();
+    // p5.textSize(512);
+    // p5.textAlign(p5.CENTER, p5.CENTER);
+    // p5.text(poseLabel, p5.width / 2, p5.height / 2);
   };
 
   return (
