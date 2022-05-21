@@ -25,6 +25,7 @@ import {
 const Start = (props) => {
   const [skeletonEffect, setSkeletonEffect] = useState(true);
   const [rednoseEffect, setRednoseEffect] = useState(false);
+  const [emojiFace, setEmojiFace] = useState(false);
 
   let poseLabel = null;
 
@@ -156,9 +157,26 @@ const Start = (props) => {
       // For Red Nose Effect
       if (pose && rednoseEffect) {
         console.log("POSE FOR NOSE", pose);
+        //eyes
+        p5.fill(255, 255, 255);
+        p5.stroke(204, 102, 0);
+        p5.ellipse(pose.leftEye.x, pose.leftEye.y, 60, 35);
+        p5.ellipse(pose.rightEye.x, pose.rightEye.y, 60, 35);
+        p5.fill(51, 26, 0);
+        p5.ellipse(pose.leftEye.x, pose.leftEye.y, 30, 30);
+        p5.ellipse(pose.rightEye.x, pose.rightEye.y, 30, 30);
+        //red nose
         p5.fill(255, 0, 0);
-        p5.ellipse(pose.nose.x, pose.nose.y, 30);
+        p5.ellipse(pose.nose.x, pose.nose.y, 50);
       }
+
+      // Emoji Face
+      if (pose && emojiFace) {
+        p5.textSize(300);
+        p5.textAlign(p5.CENTER);
+        p5.text("😍", pose.nose.x, pose.nose.y + 100);
+      }
+
       p5.pop();
       p5.image(counter.img, 751, 0, 750, 550);
 
@@ -179,7 +197,7 @@ const Start = (props) => {
         p5.noFill();
         p5.rect(800, middle, width, 20, 15);
       } else {
-        p5.test("Completed", 950, middle);
+        p5.text("Completed", 950, middle);
       }
     };
   };
@@ -295,6 +313,22 @@ const Start = (props) => {
                   label="Red Nose"
                 />
               </Grid>
+              <Grid item xs={2}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={() => {
+                        if (!emojiFace) {
+                          setEmojiFace(true);
+                        } else {
+                          setEmojiFace(false);
+                        }
+                      }}
+                    />
+                  }
+                  label="Emoji Face"
+                />
+              </Grid>
             </Grid>
           </FormGroup>
         </Grid>
@@ -340,3 +374,27 @@ const Start = (props) => {
 };
 
 export default Start;
+
+//  if (pose && emojiFace) {
+//    p5.fill(204, 102, 0);
+//    p5.noStroke();
+//    p5.ellipse(pose.nose.x, pose.nose.y, 35, 50);
+//    //eyes
+//    p5.fill(255, 255, 255);
+//    p5.stroke(204, 102, 0);
+//    p5.ellipse(pose.leftEye.x, pose.leftEye.y, 60, 35);
+//    p5.ellipse(pose.rightEye.x, pose.rightEye.y, 60, 35);
+//    p5.fill(51, 26, 0);
+//    p5.ellipse(pose.leftEye.x, pose.leftEye.y, 30, 30);
+//    p5.ellipse(pose.rightEye.x, pose.rightEye.y, 30, 30);
+//    //mouth
+//    p5.fill(204, 102, 0);
+//    p5.arc(
+//      pose.leftEye.x - 20,
+//      pose.leftEye.y + 20,
+//      100,
+//      100,
+//      p5.PI,
+//      p5.PI - p5.PI
+//    );
+//  }
