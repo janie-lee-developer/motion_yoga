@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import useInterval from "@use-it/interval";
+import React, { useState } from "react";
 
 // ml5, p5
 import ml5 from "ml5";
@@ -8,42 +7,42 @@ import { ReactP5Wrapper } from "react-p5-wrapper";
 //p5 audio
 import "./globals";
 import "p5/lib/addons/p5.sound";
-import * as p5 from "p5";
+// import * as p5 from "p5";
 
 // components
 // import sketch from "./sketch";
-import ItemContainer from "./style";
+import ItemContainer from "../../public/styles/style";
 
 // mui
 import {
   Grid,
-  Button,
   Typography,
   Switch,
   FormGroup,
   FormControlLabel,
-  LinearProgress,
-  Box,
 } from "@mui/material";
 
-const App = (props) => {
+const Start = (props) => {
   const [skeletonEffect, setSkeletonEffect] = useState(true);
   const [rednoseEffect, setRednoseEffect] = useState(false);
 
   let poseLabel = null;
 
-  const todoPictures = [
+  let todoPictures = [
     "/public/todo_motions/1.jpg",
     "/public/todo_motions/2.jpg",
     "/public/todo_motions/3.jpg",
   ];
 
-  const todoLabels = ["A", "E", "D"];
+  let todoLabels = ["A", "E", "D"];
+
+  let finishedLabels = [];
 
   const sketch = (p5) => {
     let video;
     let img;
     let ring;
+    let check;
     let poseNet;
     let pose;
     let skeleton;
@@ -57,6 +56,7 @@ const App = (props) => {
       video.hide();
       img = p5.loadImage(todoPictures[0]);
       ring = p5.loadSound("/public/ring_sound_effect/Correct-answer.mp3");
+      check = p5.loadImage("/public/styles/check_lv.jpg");
 
       counter = new Count(p5, 0, 100, img, ring);
 
@@ -127,8 +127,9 @@ const App = (props) => {
     };
 
     p5.draw = () => {
+      p5.background(255);
       p5.push();
-      // p5.background(255);
+      p5.background(255);
       p5.translate(750, 0);
       p5.scale(-1, 1);
       p5.image(video, 0, 0, 750, 550);
@@ -150,6 +151,13 @@ const App = (props) => {
           p5.ellipse(x, y, 16, 16);
         }
       }
+
+      // For Red Nose Effect
+      if (pose && rednoseEffect) {
+        console.log("POSE FOR NOSE", pose);
+        p5.fill(255, 0, 0);
+        p5.ellipse(pose.nose.x, pose.nose.y, 30);
+      }
       p5.pop();
 
       p5.image(counter.img, 751, 0, 750, 550);
@@ -169,17 +177,6 @@ const App = (props) => {
       p5.stroke(141, 242, 141);
       p5.noFill();
       p5.rect(800, middle, width, 20, 15);
-
-      // resetting progress bar to 0;
-      //   if (p5.floor(p5.random(300)) == 100) {
-      //     counter.reset();
-      //   }
-
-      //   p5.fill(255, 0, 255);
-      //   p5.noStroke();
-      //   p5.textSize(512);
-      //   p5.textAlign(p5.CENTER, p5.CENTER);
-      //   p5.text(poseLabel, p5.width / 2, p5.height / 2);
     };
   };
 
@@ -212,8 +209,9 @@ const App = (props) => {
       }
     }
 
-    reset() {
+    async reset() {
       this.ring.play();
+      finishedLabels.push(todoLabels[0]);
       todoLabels.shift();
       todoPictures.shift();
       this.s = 0;
@@ -222,15 +220,24 @@ const App = (props) => {
   }
 
   return (
-    <>
-      <div style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
-        <Typography variant="logo">Motion Yoga</Typography>
+    <div className="start-content">
+      <div
+        style={{
+          width: "80%",
+          margin: "1rem auto",
+          textAlign: "center",
+          paddingTop: "1rem",
+        }}
+      >
+        <Typography variant="home" sx={{ fontSize: "3vw" }}>
+          Follow the posture and remain until the bell rings.
+        </Typography>
       </div>
 
       <Grid
         container
         direction="row"
-        justifyContent="center"
+        justifyContent="flex-start"
         alignItems="center"
         sx={{
           width: "95%",
@@ -238,61 +245,62 @@ const App = (props) => {
         }}
         spacing={1}
       >
-        <Grid item xs={11} sx={{ width: "100%" }}>
-          {/* <Sketch setup={setup} draw={draw} keyPressed={keyPressed}/> */}
+        <Grid item xs={12} sx={{ width: "100%" }}>
           <ItemContainer>
             <ReactP5Wrapper sketch={sketch} />
           </ItemContainer>
+        </Grid>
+        <Grid item xs={12} sx={{ width: "100%" }}>
           <Typography variant="fonts">Camera Effects</Typography>
           <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  defaultChecked
-                  onChange={() => {
-                    if (!skeletonEffect) {
-                      setSkeletonEffect(true);
-                    } else {
-                      setSkeletonEffect(false);
-                    }
-                  }}
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid item sx={6}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      defaultChecked
+                      onChange={() => {
+                        if (!skeletonEffect) {
+                          setSkeletonEffect(true);
+                        } else {
+                          setSkeletonEffect(false);
+                        }
+                      }}
+                    />
+                  }
+                  label="Skeleton"
                 />
-              }
-              label="Skeleton"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={() => {
-                    if (!rednoseEffect) {
-                      setRednoseEffect(true);
-                    } else {
-                      setRednoseEffect(false);
-                    }
-                  }}
+              </Grid>
+              <Grid item sx={6}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={() => {
+                        if (!rednoseEffect) {
+                          setRednoseEffect(true);
+                        } else {
+                          setRednoseEffect(false);
+                        }
+                      }}
+                    />
+                  }
+                  label="Red Nose"
                 />
-              }
-              label="Red Nose"
-            />
+              </Grid>
+            </Grid>
           </FormGroup>
         </Grid>
-        <Grid item xs={1} sx={{ width: "100%" }}>
-          <div>
-            <ul>
-              <li>STEP 1</li>
-              <li>STEP 2</li>
-              <li>STEP 3</li>
-              <li>STEP 4</li>
-              <li>STEP 5</li>
-            </ul>
-          </div>
-        </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 
-export default App;
+export default Start;
 
 {
   /* {currentPose === "A" ? (

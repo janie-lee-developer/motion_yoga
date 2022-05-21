@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   typography: {
     logo: {
-      fontSize: "60px",
+      fontSize: "40px",
       fontFamily: "Radio Canada, sans- serif",
       color: "black",
       margin: "0 auto",
@@ -11,6 +11,26 @@ export const theme = createTheme({
     fonts: {
       fontSize: "20px",
       fontFamily: "Radio Canada, sans- serif",
+      color: "black",
+    },
+    menuitem: {
+      fontSize: "20px",
+      fontFamily: "Radio Canada, sans- serif",
+      color: "white",
+      backgroundColor: "black",
+      width: "100%",
+      borderRadius: "1.5rem",
+      padding: ".7rem 1.5rem",
+      fontWeight: "500",
+    },
+    home: {
+      fontSize: "6vw",
+      fontFamily: "Playball cursive",
+      color: "black",
+    },
+    cursive: {
+      fontSize: "3vw",
+      fontFamily: "Playball, cursive",
       color: "black",
     },
   },

@@ -8,3 +8,9 @@ video {
   width: 100% !important;
   height: 100% !important;
 } */
+
+body {
+  margin: 0;
+  margin-top: 70px;
+  overflow-x: hidden;
+}
