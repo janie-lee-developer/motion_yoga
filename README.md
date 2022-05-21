@@ -1,4 +1,6 @@
 # Motion Yoga
+Join the experience now!
+url: https://yoga-motion.herokuapp.com/#/
 
 ## A machine learned yoga exercie app
 Motion Yoga is a web application, powered by ML5's PoseNet and Neural Network Libraries, P5 renderings. I collected my own data and trained the data to the machine, thanks to ML5's beginner friendly machine learning libraries. 
