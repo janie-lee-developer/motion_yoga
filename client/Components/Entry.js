@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Preload } from "react-preload";
 import { Button, Typography } from "@mui/material";
 
 const Entry = () => {
-  const gif = ["https://giphy.com/embed/ly6swQArDGorfi4h7p/video"];
-
   return (
     <div>
       <div style={{ width: "100%", zIndex: "-1" }}>
@@ -18,32 +15,18 @@ const Entry = () => {
             width: "100%",
           }}
         >
-          <Preload
-            loadingIndicator={() => {
-              console.log("loading...gif");
+          <iframe
+            allowfullscreen=""
+            frameBorder="0"
+            src="https://giphy.com/embed/ly6swQArDGorfi4h7p/video"
+            style={{
+              left: "0",
+              position: "absolute",
+              top: "0",
+              width: "100%",
+              height: "100%",
             }}
-            onError={() => {
-              console.log("gif loading error");
-            }}
-            images={gif}
-            resolveOnError={true}
-            mountChildren={true}
-          >
-            {
-              <iframe
-                allowfullscreen=""
-                frameBorder="0"
-                src="https://giphy.com/embed/ly6swQArDGorfi4h7p/video"
-                style={{
-                  left: "0",
-                  position: "absolute",
-                  top: "0",
-                  width: "100%",
-                  height: "100%",
-                }}
-              ></iframe>
-            }
-          </Preload>
+          ></iframe>
         </div>
       </div>
       <div
