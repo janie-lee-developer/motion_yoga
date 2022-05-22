@@ -1,10 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 const Entry = () => {
   return (
-    <div>
+    <Box
+      sx={{
+        marginTop: {
+          xxs: "60px",
+          xs: "63px",
+          sm: "11vw",
+          md: "10vw",
+          lg: "9.5vw",
+          xl: "9.5vw",
+        },
+      }}
+    >
       <div style={{ width: "100%", zIndex: "-1" }}>
         <div
           className="gif_home"
@@ -16,7 +27,7 @@ const Entry = () => {
           }}
         >
           <iframe
-            allowfullscreen=""
+            allowFullscreen=""
             frameBorder="0"
             src="https://giphy.com/embed/ly6swQArDGorfi4h7p/video"
             style={{
@@ -53,7 +64,7 @@ const Entry = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,11 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./App";
+
+// router
 import { HashRouter as Router } from "react-router-dom";
+
+// child components
+import App from "./App";
 
 render(
   <Router>

@@ -14,13 +14,7 @@ import "p5/lib/addons/p5.sound";
 import ItemContainer from "../../public/styles/style";
 
 // mui
-import {
-  Grid,
-  Typography,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
+import { Grid, Typography, Switch, FormGroup, FormControlLabel, Box } from "@mui/material";
 
 const Start = (props) => {
   const [skeletonEffect, setSkeletonEffect] = useState(true);
@@ -213,14 +207,7 @@ const Start = (props) => {
 
     handleClassify() {
       const currentPose = poseLabel;
-      console.log(
-        "todo:",
-        todoLabels[0],
-        "current pose:",
-        currentPose,
-        "progress: ",
-        this.s
-      );
+      console.log("todo:", todoLabels[0], "current pose:", currentPose, "progress: ", this.s);
       if (currentPose === todoLabels[0]) {
         if (this.s < 100) {
           this.s += 2;
@@ -241,13 +228,23 @@ const Start = (props) => {
   }
 
   return (
-    <div className="start-content">
+    <Box
+      sx={{
+        marginTop: {
+          xxs: "60px",
+          xs: "63px",
+          sm: "11vw",
+          md: "10vw",
+          lg: "9.5vw",
+          xl: "9.5vw",
+        },
+      }}
+    >
       <div
         style={{
           width: "80%",
-          margin: "1rem auto",
+          margin: "0 auto",
           textAlign: "center",
-          paddingTop: "1rem",
         }}
       >
         <Typography variant="home" sx={{ fontSize: "3vw" }}>
@@ -274,12 +271,7 @@ const Start = (props) => {
         <Grid item xs={12} sx={{ width: "100%" }}>
           <Typography variant="fonts">Camera Effects</Typography>
           <FormGroup>
-            <Grid
-              container
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-            >
+            <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
               <Grid item xs={2}>
                 <FormControlLabel
                   control={
@@ -353,15 +345,7 @@ const Start = (props) => {
       >
         {todoPictures.map((pic) => {
           return (
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              md={4}
-              lg={4}
-              x={4}
-              sx={{ width: "300px" }}
-            >
+            <Grid item xs={12} sm={4} md={4} lg={4} x={4} sx={{ width: "300px" }}>
               <div style={{ width: "100%" }}>
                 <img src={pic} style={{ maxWidth: "100%" }} />
               </div>
@@ -369,7 +353,7 @@ const Start = (props) => {
           );
         })}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

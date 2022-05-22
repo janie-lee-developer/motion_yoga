@@ -12,8 +12,8 @@ const App = () => {
   useEffect(() => {
     const gif = new Image();
     gif.src = "https://giphy.com/embed/ly6swQArDGorfi4h7p/video";
+    window.scrollTo(0, 0);
   }, []);
-
   return (
     <div>
       <ThemeProvider theme={theme}>

@@ -1,9 +1,12 @@
 import React, { Suspense } from "react";
+
+// preload
 import lazy from "react-lazy-with-preload";
-import { Button, Typography } from "@mui/material";
-// import Entry from "./Entry";
 const Entry = lazy(() => import("./Entry"));
 Entry.preload();
+
+// MUI
+import { Typography } from "@mui/material";
 
 const Home = () => {
   return (
@@ -11,7 +14,7 @@ const Home = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Entry />
       </Suspense>
-      <div style={{ margin: "2rem auto", width: "70%", textAlign: "center" }}>
+      <div style={{ margin: "0 auto", width: "70%", textAlign: "center" }}>
         <Typography variant="cursive" sx={{ fontSize: "3rem" }}>
           We care about your well being.
         </Typography>
