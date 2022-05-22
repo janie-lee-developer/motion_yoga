@@ -7,6 +7,7 @@ const Entry = () => {
     <div>
       <div style={{ width: "100%", zIndex: "-1" }}>
         <div
+          className="gif_home"
           style={{
             height: "0",
             paddingBottom: "56.25%",
