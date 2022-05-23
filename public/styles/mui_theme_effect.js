@@ -63,13 +63,6 @@ export const theme = createTheme({
         },
       },
     },
-    MuiGrid: {
-      styleOverrides: {
-        root: {
-          width: "100%",
-        },
-      },
-    },
     MuiToggleButton: {
       styleOverrides: {
         root: {

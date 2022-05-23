@@ -275,7 +275,7 @@ const Start = (props) => {
         </Grid>
         <Grid item xs={12} sx={{ width: "100%" }}>
           <Grid container direction="row" justifyContent="flex-start" alignItems="center" sx={{ width: "100%" }}>
-            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+            <Grid item xxs={12} xs={12} sm={4} md={4} lg={4} xl={4} xxl={4}>
               <FormGroup>
                 <FormControlLabel
                   control={
@@ -294,7 +294,7 @@ const Start = (props) => {
                 />
               </FormGroup>
             </Grid>
-            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+            <Grid item xxs={12} xs={12} sm={4} md={4} lg={4} xl={4} xxl={4}>
               <FormGroup>
                 <FormControlLabel
                   control={
@@ -312,7 +312,7 @@ const Start = (props) => {
                 />
               </FormGroup>
             </Grid>
-            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+            <Grid item xxs={12} xs={12} sm={4} md={4} lg={4} xl={4} xxl={4}>
               <FormGroup>
                 <FormControlLabel
                   control={
