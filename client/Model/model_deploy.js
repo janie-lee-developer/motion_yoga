@@ -41,15 +41,15 @@ const Start = (props) => {
 
     p5.setup = () => {
       p5.createCanvas(1500, 550);
-      // video = p5.createCapture(p5.VIDEO);
-      video = p5.createCapture({
-        audio: false,
-        video: {
-          facingMode: {
-            exact: "user",
-          },
-        },
-      });
+      video = p5.createCapture(p5.VIDEO);
+      // video = p5.createCapture({
+      //   audio: false,
+      //   video: {
+      //     facingMode: {
+      //       exact: "user",
+      //     },
+      //   },
+      // });
       video.size(750, 550);
       video.hide();
       img = p5.loadImage(todoPictures[0]);
