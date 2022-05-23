@@ -18,20 +18,15 @@ body {
   overflow-x: hidden;
 }
 
-/* @media only screen and (min-width: 350px) {
-  .css-1xhvapr {
-    flex-basis: 100%;
-    -webkit-box-flex: 0;
-    flex-grow: 0;
-    max-width: 100%;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .css-1xhvapr {
+@media only screen and (min-width: 900px) {
+  .css-cjf6hc {
     flex-basis: 30%;
     -webkit-box-flex: 0;
     flex-grow: 0;
-    max-width: 100%;
+    max-width: 20%;
   }
-} */
+
+  .css-1v9qfxr-MuiGrid-root {
+    max-width: 20%;
+  }
+}
