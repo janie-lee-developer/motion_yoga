@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // router
 import { Link } from "react-router-dom";
@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 // mui
 import { AppBar, Toolbar, MenuItem, Typography } from "@mui/material";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  console.log("navbar props", props);
+  const location = props.routeProps && props.routeProps.location.pathname;
   return (
     <AppBar
       position="fixed"
@@ -36,52 +38,80 @@ const Navbar = () => {
             "&:hover": { bgcolor: "transparent" },
             width: "100%",
             textAlign: "center",
-            marginTop: {
-              xxs: "0",
+            paddingTop: {
+              xxs: 0,
+              xs: 0,
+              sm: "6px",
+              md: "6px",
+              lg: "6px",
+              xl: "6px",
             },
           }}
         >
-          <Typography
-            variant="logo"
+          {!location.includes("start") ? (
+            <Typography
+              variant="logo"
+              sx={{
+                fontSize: {
+                  xxs: "25px",
+                  xs: "35px",
+                  sm: "45px",
+                  md: "55px",
+                  lg: "55px",
+                  xl: "55px",
+                },
+                paddingLeft: {
+                  xxs: "0",
+                  xs: "0",
+                  sm: "15vw",
+                  md: "10vw",
+                  lg: "8.5vw",
+                  xl: "6vw",
+                  xxl: "5vw",
+                },
+              }}
+            >
+              MOTION YOGA
+            </Typography>
+          ) : (
+            <Typography
+              variant="logo"
+              sx={{
+                fontSize: {
+                  xxs: "25px",
+                  xs: "35px",
+                  sm: "45px",
+                  md: "50px",
+                  lg: "55px",
+                  xl: "55px",
+                },
+              }}
+            >
+              MOTION YOGA
+            </Typography>
+          )}
+        </MenuItem>
+        {!location.includes("start") ? (
+          <MenuItem
+            component={Link}
+            to={"/start"}
             sx={{
-              fontSize: {
-                xxs: "25px",
-                xs: "35px",
-                sm: "45px",
-                md: "55px",
-                lg: "55px",
-                xl: "55px",
-              },
-              paddingLeft: {
-                xxs: "0",
-                xs: "0",
-                sm: "14vw",
-                md: "14vw",
-                lg: "14vw",
-                xl: "14vw",
+              "&:hover": { bgcolor: "transparent" },
+              display: {
+                xxs: "none",
+                xs: "none",
+                sm: "inline",
+                md: "inline",
+                lg: "inline",
+                xl: "inline",
               },
             }}
           >
-            MOTION YOGA
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          to={"/start"}
-          sx={{
-            "&:hover": { bgcolor: "transparent" },
-            display: {
-              xxs: "none",
-              xs: "none",
-              sm: "inline",
-              md: "inline",
-              lg: "inline",
-              xl: "inline",
-            },
-          }}
-        >
-          <Typography variant="menuitem">Start</Typography>
-        </MenuItem>
+            <Typography variant="menuitem">Start</Typography>
+          </MenuItem>
+        ) : (
+          <></>
+        )}
       </Toolbar>
     </AppBar>
   );

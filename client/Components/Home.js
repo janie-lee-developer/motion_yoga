@@ -6,11 +6,23 @@ const Entry = lazy(() => import("./Entry"));
 Entry.preload();
 
 // MUI
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const Home = () => {
   return (
-    <div>
+    <Box
+      className={"MUI_BOX"}
+      sx={{
+        marginTop: {
+          xxs: "45px",
+          xs: "50px",
+          sm: "60px",
+          md: "65px",
+          lg: "73px",
+          xl: "73px",
+        },
+      }}
+    >
       <Suspense fallback={<div>Loading...</div>}>
         <Entry />
       </Suspense>
@@ -19,7 +31,7 @@ const Home = () => {
           We care about your well being.
         </Typography>
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -23,14 +23,7 @@ const Start = (props) => {
 
   let poseLabel = null;
 
-  let todoPictures = [
-    "/public/todo_motions/1.jpg",
-    "/public/todo_motions/2.jpg",
-    "/public/todo_motions/3.jpg",
-    "/public/todo_motions/4.jpg",
-    "/public/todo_motions/5.jpg",
-    "/public/todo_motions/6.jpg",
-  ];
+  let todoPictures = ["/public/todo_motions/1.jpg", "/public/todo_motions/2.jpg", "/public/todo_motions/3.jpg", "/public/todo_motions/4.jpg", "/public/todo_motions/5.jpg", "/public/todo_motions/6.jpg"];
 
   let todoLabels = ["A", "B", "C", "D", "E", "F"];
 
@@ -100,7 +93,7 @@ const Start = (props) => {
     const gotResult = (err, results) => {
       if (results[0].confidence > 0.95) {
         poseLabel = results[0].label.toUpperCase();
-        console.log(poseLabel);
+        // console.log(poseLabel);
       }
       classifyPose();
     };
@@ -150,7 +143,7 @@ const Start = (props) => {
 
       // For Red Nose Effect
       if (pose && rednoseEffect) {
-        console.log("POSE FOR NOSE", pose);
+        // console.log("POSE FOR NOSE", pose);
         //eyes
         p5.fill(255, 255, 255);
         p5.stroke(204, 102, 0);
@@ -207,7 +200,7 @@ const Start = (props) => {
 
     handleClassify() {
       const currentPose = poseLabel;
-      console.log("todo:", todoLabels[0], "current pose:", currentPose, "progress: ", this.s);
+      // console.log("todo:", todoLabels[0], "current pose:", currentPose, "progress: ", this.s);
       if (currentPose === todoLabels[0]) {
         if (this.s < 100) {
           this.s += 2;
@@ -231,26 +224,27 @@ const Start = (props) => {
     <Box
       sx={{
         marginTop: {
-          xxs: "60px",
-          xs: "63px",
-          sm: "11vw",
-          md: "10vw",
-          lg: "9.5vw",
-          xl: "9.5vw",
+          xxs: "45px",
+          xs: "50px",
+          sm: "60px",
+          md: "65px",
+          lg: "73px",
+          xl: "73px",
         },
       }}
     >
-      <div
+      <Box
         style={{
           width: "80%",
           margin: "0 auto",
           textAlign: "center",
+          paddingTop: "5px",
         }}
       >
         <Typography variant="home" sx={{ fontSize: "3vw" }}>
           Follow the posture and remain until the bell rings.
         </Typography>
-      </div>
+      </Box>
 
       <Grid
         container
@@ -335,17 +329,10 @@ const Start = (props) => {
       >
         <Typography variant="logo">Postures Gallery</Typography>
       </div>
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={1}
-        sx={{ width: "90%", margin: "0 auto" }}
-      >
-        {todoPictures.map((pic) => {
+      <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1} sx={{ width: "90%", margin: "0 auto" }}>
+        {todoPictures.map((pic, i) => {
           return (
-            <Grid item xs={12} sm={4} md={4} lg={4} x={4} sx={{ width: "300px" }}>
+            <Grid key={i} item xs={12} sm={4} md={4} lg={4} x={4} sx={{ width: "300px" }}>
               <div style={{ width: "100%" }}>
                 <img src={pic} style={{ maxWidth: "100%" }} />
               </div>
@@ -382,3 +369,16 @@ export default Start;
 //      p5.PI - p5.PI
 //    );
 //  }
+
+//  <Box
+//       sx={{
+//         marginTop: {
+//           xxs: "60px",
+//           xs: "63px",
+//           sm: "10vw",
+//           md: "8vw",
+//           lg: "6.2vw",
+//           xl: "5vw",
+//         },
+//       }}
+//     ></Box>
