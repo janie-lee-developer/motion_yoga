@@ -46,7 +46,7 @@ const Start = (props) => {
         audio: false,
         video: {
           facingMode: {
-            exact: "environment",
+            exact: "user",
           },
         },
       });
