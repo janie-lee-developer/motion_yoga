@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   breakpoints: {
+    keys: ["xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
     values: {
       xxs: 0,
       xs: 350,
@@ -59,6 +60,13 @@ export const theme = createTheme({
         root: {
           borderRadius: 0,
           height: "40px",
+        },
+      },
+    },
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          width: "100%",
         },
       },
     },

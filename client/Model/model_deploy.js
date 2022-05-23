@@ -41,7 +41,15 @@ const Start = (props) => {
 
     p5.setup = () => {
       p5.createCanvas(1500, 550);
-      video = p5.createCapture(p5.VIDEO);
+      // video = p5.createCapture(p5.VIDEO);
+      video = p5.createCapture({
+        audio: false,
+        video: {
+          facingMode: {
+            exact: "environment",
+          },
+        },
+      });
       video.size(750, 550);
       video.hide();
       img = p5.loadImage(todoPictures[0]);
@@ -264,9 +272,11 @@ const Start = (props) => {
         </Grid>
         <Grid item xs={12} sx={{ width: "100%" }}>
           <Typography variant="fonts">Camera Effects</Typography>
-          <FormGroup>
-            <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
-              <Grid item xs={2}>
+        </Grid>
+        <Grid item xs={12} sx={{ width: "100%" }}>
+          <Grid container direction="row" justifyContent="flex-start" alignItems="center" sx={{ width: "100%" }}>
+            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+              <FormGroup>
                 <FormControlLabel
                   control={
                     <Switch
@@ -282,8 +292,10 @@ const Start = (props) => {
                   }
                   label="Skeleton"
                 />
-              </Grid>
-              <Grid item xs={2}>
+              </FormGroup>
+            </Grid>
+            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+              <FormGroup>
                 <FormControlLabel
                   control={
                     <Switch
@@ -298,8 +310,10 @@ const Start = (props) => {
                   }
                   label="Red Nose"
                 />
-              </Grid>
-              <Grid item xs={2}>
+              </FormGroup>
+            </Grid>
+            <Grid item xxs={12} xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+              <FormGroup>
                 <FormControlLabel
                   control={
                     <Switch
@@ -314,9 +328,9 @@ const Start = (props) => {
                   }
                   label="Emoji Face"
                 />
-              </Grid>
+              </FormGroup>
             </Grid>
-          </FormGroup>
+          </Grid>
         </Grid>
       </Grid>
       <hr style={{ width: "95%", marginTop: "4rem", marginBottom: "5rem" }} />
@@ -382,3 +396,35 @@ export default Start;
 //         },
 //       }}
 //     ></Box>
+
+// sx={{
+//                 maxWidth: { xxs: "100%", xs: "100%", sm: "100%", md: "100%" },
+//                 flexBasis: {
+//                   xxs: "100%",
+//                   sx: "100%",
+//                   sm: "100%",
+//                   md: "40%",
+//                 },
+//               }}
+
+// <Grid
+//               item
+//               xs={12}
+//               sm={12}
+//               md={4}
+//               lg={4}
+//               xl={4}
+//               sx={{
+//                 maxWidth: {
+//                   xxs: "100%",
+//                   xs: "100%",
+//                   sm: "100%",
+//                 },
+//                 flexBasis: {
+//                   xxs: "100%",
+//                   xs: "30%",
+//                   sm: "30%",
+//                   md: "16.6667%",
+//                 },
+//               }}
+//             ></Grid>
